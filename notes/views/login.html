@@ -1,0 +1,53 @@
+<!doctype html>
+
+<title>Sign In</title>
+
+<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+<script>
+	// Initialize Firebase
+	var config = {
+		apiKey: "AIzaSyB0L7Y67Wp-ALOgWjes_6SWaCSWdOhJhEU",
+		authDomain: "creative6-143e4.firebaseapp.com",
+		databaseURL: "https://creative6-143e4.firebaseio.com",
+		projectId: "creative6-143e4",
+		storageBucket: "creative6-143e4.appspot.com",
+		messagingSenderId: "148818241184"
+	};
+
+	firebase.initializeApp(config);
+</script>
+
+<script>
+	/* global firebase */
+	function toggleSignIn() {
+		document.getElementById('sign-in').disabled = true;
+		if (!firebase.auth().currentUser) {
+			var provider = new firebase.auth.GithubAuthProvider();
+			provider.addScope('repo');
+			firebase.auth().signInWithRedirect(provider);
+		}
+		else {
+			firebase.auth().signOut();
+		}
+	}
+
+	function initApp() {
+		firebase.auth().onAuthStateChanged(function(user) {
+			if (user) {
+				console.log(user);
+				document.getElementById('sign-in').textContent = 'Sign out';
+			}
+			else {
+				document.getElementById('sign-in').textContent = 'Sign in with GitHub';
+			}
+			document.getElementById('sign-in').disabled = false;
+		});
+		document.getElementById('sign-in').addEventListener('click', toggleSignIn, false);
+	}
+
+	window.onload = function() {
+		initApp();
+	};
+</script>
+
+<button id='sign-in'>Sign in with GitHub</button>
