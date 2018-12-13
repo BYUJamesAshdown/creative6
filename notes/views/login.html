@@ -19,30 +19,22 @@
 
 <script>
 	/* global firebase */
-	function toggleSignIn() {
+	function signIn() {
 		document.getElementById('sign-in').disabled = true;
 		if (!firebase.auth().currentUser) {
 			var provider = new firebase.auth.GithubAuthProvider();
 			provider.addScope('repo');
 			firebase.auth().signInWithRedirect(provider);
 		}
-		else {
-			firebase.auth().signOut();
-		}
 	}
 
 	function initApp() {
 		firebase.auth().onAuthStateChanged(function(user) {
 			if (user) {
-				console.log(user);
-				document.getElementById('sign-in').textContent = 'Sign out';
+				window.open("/", "_self");
 			}
-			else {
-				document.getElementById('sign-in').textContent = 'Sign in with GitHub';
-			}
-			document.getElementById('sign-in').disabled = false;
 		});
-		document.getElementById('sign-in').addEventListener('click', toggleSignIn, false);
+		document.getElementById('sign-in').addEventListener('click', signIn, false);
 	}
 
 	window.onload = function() {

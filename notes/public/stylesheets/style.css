@@ -1,8 +1,30 @@
 body {
-  padding: 50px;
+  padding: 1em;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+#topbar {
+	display: flex;
+}
+
+#title {
+	border: none;
+	flex-grow: 1;
+	font-size: large;
+	padding: 0;
+}
+
+#text {
+	height: 15em;
+	padding: 0;
+	resize: none;
+	width: 100%;
+}
+
+#sign-out {
+	float: right;
 }
