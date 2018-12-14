@@ -4,6 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/notes', {useNewUrlParser: true});
+require('./models/Notes');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 

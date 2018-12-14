@@ -1,7 +1,11 @@
 <!DOCTYPE html>
+<html ng-app='note'>
 
 <title>One Note</title>
 <link rel='stylesheet' href='stylesheets/style.css'>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+<script src='/javascripts/note.js'></script>
 
 <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
 <script>
@@ -30,6 +34,7 @@
 			if (!user) {
 				window.open("/login", "_self");
 			}
+			window.uid = user.uid;
 		});
 		document.getElementById('sign-out').addEventListener('click', signOut, false);
 	}
@@ -39,10 +44,11 @@
 	};
 </script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
-<script src='/javascripts/note.js'></script>
-
-<div ng-app='note' ng-controller='noteController'>
+<div ng-controller='noteController'>
 	<button id='sign-out'>Sign Out</button>
-	<textarea id='text' ng-model='text'></textarea>
+	<textarea id='text' ng-model='note.text'></textarea>
 </div>
+
+<button id='button'>button</button>
+
+</html>

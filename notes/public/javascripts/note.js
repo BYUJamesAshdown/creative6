@@ -2,16 +2,26 @@
 
 angular.module('note', [])
 	.controller('noteController', [
-		'$scope',
-		function($scope) {
-			$scope.text = 'hello';
-			$scope.addComment = function() {
-				var newcomment = { title: $scope.formContent, upvotes: 0 };
-				$scope.formContent = '';
-				$scope.comments.push(newcomment);
+		'$scope', '$http',
+		function($scope, $http) {
+			$scope.note = { uid: window.uid, text: '' };
+
+			$scope.getNote = function() {
+				$http.get(`/notes`, { params: { uid: window.uid } })
+					.then(function(data) {
+						angular.copy(data, $scope.note);
+						console.log($scope.note);
+					});
 			};
-			$scope.incrementUpvotes = function(comment) {
-				comment.upvotes += 1;
+
+			$scope.postNote = function() {
+				$http.post(`/notes`, $scope.note)
+					.then(function(data) {});
 			};
+
+			$scope.getNote();
+
+			//document.getElementById('button').addEventListener('click', $scope.getNote, false);
+			document.getElementById('button').addEventListener('click', $scope.postNote, false);
 		}
 	]);
